@@ -7,6 +7,21 @@ import CategoryInfluencers from "../components/CategoryInfluencers";
 import CountryInfluencers from "../components/CountryInfluencers";
 import {useEffect, useState} from "react";
 
+type DataResult = {
+  result: string;
+  topByCountry: {
+    country: string;
+    name: string;
+    handle: string;
+  }[];
+  topByCategory: {
+    category: string;
+    name: string;
+    handle: string;
+  }[]
+
+}
+
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 const Home: NextPage = () => {
   const {data, error} = useSWR('/api/insights', fetcher)
@@ -31,10 +46,10 @@ const Home: NextPage = () => {
           Featuring a lot of if/else statements posing as Machine Learning
         </h2>
 
-        <CategoryInfluencers/>
+        {data && data.topByCategory ? <CategoryInfluencers data={data.topByCategory}/> : <></>}
         <br/>
         <br/>
-        <CountryInfluencers/>
+        {data && data.topByCountry ? <CountryInfluencers  data={data.topByCountry}/> : <></>}
         <br/>
       </main>
     </div>
