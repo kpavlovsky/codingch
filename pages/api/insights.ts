@@ -34,7 +34,7 @@ const fullNumber = (num: string): number => {
 
   const b = parseFloat(num)
   if (num.toLowerCase().includes('m')) return b * 1000000;
-  if (num.toLowerCase().includes('k')) return b * 1000000;
+  if (num.toLowerCase().includes('k')) return b * 1000;
   return b
 }
 
