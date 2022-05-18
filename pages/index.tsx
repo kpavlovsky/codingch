@@ -2,9 +2,15 @@ import type {NextPage} from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import useSWR from 'swr'
+import CategoryInfluencers from "../components/CategoryInfluencers";
+import CountryInfluencers from "../components/CountryInfluencers";
+import {useEffect, useState} from "react";
 
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
 const Home: NextPage = () => {
-
+  const {data, error} = useSWR('/api/insights', fetcher)
+  console.log(data);
   return (
     <div className={styles.container}>
       <Head>
@@ -25,34 +31,10 @@ const Home: NextPage = () => {
           Featuring a lot of if/else statements posing as Machine Learning
         </h2>
 
-        <h3 className={styles.subsubtitle}>Top Influencers by category</h3>
-        <table>
-          <thead>
-          <tr>
-            <th>Influencer</th>
-            <th>Category</th>
-            <th>Followers</th>
-          </tr>
-          </thead>
-          <tbody>
-
-          </tbody>
-        </table>
+        <CategoryInfluencers/>
         <br/>
         <br/>
-        <h3 className={styles.subsubtitle}>Top Influencers by country</h3>
-        <table>
-          <thead>
-          <tr>
-            <th>Influencer</th>
-            <th>Country</th>
-            <th>Followers</th>
-          </tr>
-          </thead>
-          <tbody>
-
-          </tbody>
-        </table>
+        <CountryInfluencers/>
         <br/>
       </main>
     </div>
