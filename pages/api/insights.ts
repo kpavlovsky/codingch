@@ -96,7 +96,7 @@ export default function handler(
 ) {
   return new Promise((resolve, reject) => {
     let basePath = process.cwd()
-    if (process.env.NODE_ENV === 'production') basePath = path.join(process.cwd(), '.next/server/chunks')
+    if (process.env.NODE_ENV === 'production') basePath = path.join(process.cwd(), '.next')
     const csvPath = path.resolve(basePath, 'data', 'instagram_influencers.csv')
 
     fs.readFile(csvPath, {encoding: 'utf-8'},
