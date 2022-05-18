@@ -66,6 +66,7 @@ const getTopByCategory = (influencers: Influencer[]): TopInCategory[] => {
         name: topInfluencer.instagramName,
         handle: topInfluencer.instagramHandle
       })
+    }
 
   }
   return topInCategories;
@@ -83,6 +84,7 @@ const getTopByCountry = (influencers: Influencer[]): TopInCountry[] => {
         name: topInfluencer.instagramName,
         handle: topInfluencer.instagramHandle
       })
+    }
   }
   return topInCountries;
 }
