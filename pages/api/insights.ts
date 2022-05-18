@@ -2,6 +2,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 import * as fs from "fs";
 import {parse} from "csv-parse";
+import path from 'path'
 
 type Influencer = {
   instagramHandle: string;
@@ -94,8 +95,11 @@ export default function handler(
   res: NextApiResponse<Data>
 ) {
   return new Promise((resolve, reject) => {
-    let pathToFile = './data/instagram_influencers.csv';
-    fs.readFile(pathToFile, {encoding: 'utf-8'},
+    let basePath = process.cwd()
+    if (process.env.NODE_ENV === 'production') basePath = path.join(process.cwd(), '.next/server/chunks')
+    const csvPath = path.resolve(basePath, 'data', 'instagram_influencers.csv')
+
+    fs.readFile(csvPath, {encoding: 'utf-8'},
       (err, data) => {
         if (err) {
           console.error(err)
