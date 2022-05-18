@@ -94,7 +94,7 @@ export default function handler(
   res: NextApiResponse<Data>
 ) {
   return new Promise((resolve, reject) => {
-    let pathToFile = './public/instagram_influencers.csv';
+    let pathToFile = './data/instagram_influencers.csv';
     fs.readFile(pathToFile, {encoding: 'utf-8'},
       (err, data) => {
         if (err) {
