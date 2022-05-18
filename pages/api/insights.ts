@@ -3,8 +3,6 @@ import type {NextApiRequest, NextApiResponse} from 'next'
 import * as fs from "fs";
 import {parse} from "csv-parse";
 
-type InfluencerRow = []
-
 type Influencer = {
   instagramHandle: string;
   instagramName: string;
@@ -40,7 +38,7 @@ const fullNumber = (num: string): number => {
   return b
 }
 
-const prepareData = (influencer: InfluencerRow): Influencer => {
+const prepareData = (influencer: string[]): Influencer => {
   return {
     instagramHandle: influencer[0],
     instagramName: influencer[1],
@@ -68,19 +66,14 @@ const getTopByCategory = (influencers: Influencer[]): TopInCategory[] => {
         name: topInfluencer.instagramName,
         handle: topInfluencer.instagramHandle
       })
-    } else {
-      // console.log('NO getTopByCategory')
-    }
 
   }
   return topInCategories;
 }
 const getTopByCountry = (influencers: Influencer[]): TopInCountry[] => {
   const countries = Array.from(new Set(influencers.map(v => v.audienceCountry)))
-  console.log(countries)
   let topInCountries: TopInCountry[] = [];
   for (let country of countries) {
-    console.log('getTopByCountry '+ country)
     const topInfluencers = influencers.filter(i => i.audienceCountry === country);
     topInfluencers.sort((a, b) => a.engagementAvg - b.engagementAvg)
     const topInfluencer = topInfluencers.shift()
@@ -90,9 +83,6 @@ const getTopByCountry = (influencers: Influencer[]): TopInCountry[] => {
         name: topInfluencer.instagramName,
         handle: topInfluencer.instagramHandle
       })
-    } else {
-      // console.log('NO getTopByCountry')
-    }
   }
   return topInCountries;
 }
